@@ -14,7 +14,7 @@ public class MathController {
         return "The number " + num1 + " added to " + num2 + " equals " + (num1 + num2);
     }
 
-    @GetMapping("/subtract/{num1}/and/{num2}")
+    @GetMapping("/subtract/{num1}/from/{num2}")
     @ResponseBody
     public String subtractTwoNumbers(@PathVariable int num1, @PathVariable int num2){
         return "The number " + num1 + " subtracted from " + num2 + " equals " + (num1 - num2);
@@ -26,9 +26,12 @@ public class MathController {
         return "The number " + num1 + " multiplied by " + num2 + " equals " + (num1 * num2);
     }
 
-    @GetMapping("/divide/{num1}/and/{num2}")
+    @GetMapping("/divide/{num1}/by/{num2}")
     @ResponseBody
-    public String divideTwoNumbers(@PathVariable int num1, @PathVariable int num2){
+    public String divideTwoNumbers(@PathVariable double num1, @PathVariable double num2){
+        if(num2 == 0){
+            return num1 + " cannot be divided by zero";
+        }
         return "The number " + num1 + " divided by " + num2 + " equals " + (num1 / num2);
     }
 

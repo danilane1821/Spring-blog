@@ -11,25 +11,25 @@ public class PostController {
 
     @GetMapping("/posts")
     @ResponseBody
-    public String postIndexMessage(){
+    public String index(){
         return "post index page";
     }
 
     @GetMapping("/posts/{id}")
     @ResponseBody
-    public String individualPostById(@PathVariable int id){
+    public String showById(@PathVariable long id){
         return "view an individual post";
     }
 
     @GetMapping("/posts/create")
     @ResponseBody
-    public String viewPostForm(){
+    public String showForm(){
         return "view the form for creating a post";
     }
 
     @PostMapping("/posts/create")
     @ResponseBody
-    public String createPost(){
+    public String create(){
         return "create a new post";
     }
 }
