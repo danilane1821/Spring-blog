@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Guess The Number On The Dice</title>
+    <style>
+        h1{
+            text-align: center;
+        }
+
+        #links {
+            text-align: center;
+            font-size: 22px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Please guess a number between 1 and 6</h1>
+    <h2 th:text="${correct}"></h2>
+    <h2 th:text="${wrong}"></h2>
+
+    <div id="links">
+        <a href="/roll-dice/1">1</a>
+        <a href="/roll-dice/2">2</a>
+        <a href="/roll-dice/3">3</a>
+        <a href="/roll-dice/4">4</a>
+        <a href="/roll-dice/5">5</a>
+        <a href="/roll-dice/6">6</a>
+    </div>
+
+
+</body>
+</html>
