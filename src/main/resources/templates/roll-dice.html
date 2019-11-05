@@ -21,9 +21,10 @@
 </head>
 <body>
     <h1>Please guess a number between 1 and 6</h1>
-    <h2 th:text="${correct}"></h2>
-    <h2 th:text="${wrong}"></h2>
-
+    <div th:if="${answer != null}">
+        <h2 th:if="${answer}">You guessed correct! The dice rolled <span th:text="${random}"></span> and you guessed <span th:text="${n}"></span>!</h2>
+        <h2 th:if="${!answer}">sorry...you guessed wrong. The dice rolled <span th:text="${random}"></span> and you guessed <span th:text="${n}"></span>.</h2>
+    </div>
     <div id="links">
         <a href="/roll-dice/1">1</a>
         <a href="/roll-dice/2">2</a>
