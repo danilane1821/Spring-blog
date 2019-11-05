@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
     <title>Guess The Number On The Dice</title>
@@ -20,6 +21,7 @@
     </style>
 </head>
 <body>
+<div th:replace="fragments/navbar :: main-navbar" />
     <h1>Please guess a number between 1 and 6</h1>
     <div th:if="${answer != null}">
         <h2 th:if="${answer}">You guessed correct! The dice rolled <span th:text="${random}"></span> and you guessed <span th:text="${n}"></span>!</h2>
@@ -34,6 +36,6 @@
         <a href="/roll-dice/6">6</a>
     </div>
 
-
+    <footer th:replace="fragments/footer :: main-footer" />
 </body>
 </html>
