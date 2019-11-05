@@ -1,21 +1,34 @@
 package com.codeup.blog.blog.controllers;
+import com.codeup.blog.blog.Posts;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @Controller
 public class PostController {
 
-    @GetMapping("/posts")
-    @ResponseBody
-    public String index(){
-        return "post index page";
+    @GetMapping("/")
+    public String index(Model viewModel) {
+        ArrayList<Posts> postList = new ArrayList<Posts>();
+        postList.add(new Posts(2,"second Post","skjdsdkh"));
+        postList.add(new Posts(3,"third Post","jndjsnu"));
+
+        viewModel.addAttribute("posts", postList);
+        return "index";
     }
 
-    @GetMapping("/posts/{id}")
-    @ResponseBody
-    public String showById(@PathVariable long id){
-        return "view an individual post";
+
+
+    @GetMapping("/show/{id}")
+
+    public String showById(@PathVariable (name = "id") long id, Model viewModel){
+        Posts post = new Posts(1,"new","fjdkfjk");
+        viewModel.addAttribute("post",post);
+
+        return "show";
     }
 
     @GetMapping("/posts/create")
