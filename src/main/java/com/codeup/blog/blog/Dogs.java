@@ -26,6 +26,9 @@ public class Dogs {
         this.name = name;
         this.reside_State = residentState;
     }
+    public Dogs() {
+
+    }
 
     public long getId() {
         return id;

@@ -11,6 +11,10 @@ public class Posts {
         this.body = body;
     }
 
+    public Posts(){
+
+    }
+
     public long getId() {
         return id;
     }
