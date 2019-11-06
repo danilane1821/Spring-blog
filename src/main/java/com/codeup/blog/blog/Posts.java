@@ -1,8 +1,19 @@
 package com.codeup.blog.blog;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="posts")
 public class Posts {
-    protected long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "Int(11) UNSIGNED",nullable = false)
+    private long id;
+
+    @Column(nullable = false, length = 200)
     private String title;
+
+    @Column(nullable = false, length = 300)
     private String body;
 
     public Posts(long id, String title, String body) {

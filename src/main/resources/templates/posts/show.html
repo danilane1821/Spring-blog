@@ -13,9 +13,9 @@
 ​
 ​
 <div class = "card">
-    <h1 th:text ="${posts.title}"></h1>
-    <p th:text="${posts.body}"></p>
-    <input type="hidden" name="id" th:value="${posts.id}">
+    <h1 th:text ="${posts.getTitle()}"></h1>
+    <p th:text="${posts.getBody()}"></p>
+    <input type="hidden" name="id" th:value="${posts}">
 </div>
 
 </body>
