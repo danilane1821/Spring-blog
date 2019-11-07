@@ -45,23 +45,26 @@ public class PostController {
         return "create a new form";
     }
 
-    @GetMapping("/posts/edit")
-    public String editForm(){
+    @GetMapping("/posts/{id}/edit")
+    public String editForm(@PathVariable long id, Model viewModel){
+        viewModel.addAttribute("post", postDao.getOne(id));
         return "posts/edit";
     }
 
-    @PostMapping("/posts/edit")
-    public String edit(@RequestParam String title,@RequestParam String body,Model viewModel){
-        viewModel.addAttribute("postsTitle", title);
-        viewModel.addAttribute("postsBody", body);
-        return "posts/edit";
+    @PostMapping("/posts/{id}/edit")
+    public String edit(@PathVariable long id,@RequestParam String title,@RequestParam String body){
+        Posts oldPost = postDao.getOne(id);
+        oldPost.setTitle(title);
+        oldPost.setBody(body);
+        postDao.save(oldPost);
+        return "redirect:/posts/" + id;
     }
 
     @PostMapping("/posts/delete")
     public String delete(@RequestParam(name = "id") long id, Model viewModel){
         postDao.deleteById(id);
         viewModel.addAttribute("posts", postDao.findAll());
-        return "posts/index";
+        return "redirect:/posts";
     }
 
 
