@@ -2,6 +2,7 @@ package com.codeup.blog.blog.controllers;
 import com.codeup.blog.blog.Post;
 
 import com.codeup.blog.blog.repositories.PostsRepository;
+import com.codeup.blog.blog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +12,13 @@ public class PostController {
 
     private final PostsRepository postDao;
 
-    public PostController(PostsRepository postDao) {
+    public final UserRepository userDao;
+
+    public PostController(PostsRepository postDao, UserRepository userDao) {
         this.postDao = postDao;
+        this.userDao = userDao;
     }
+
 
 
     @GetMapping("/posts")
@@ -30,17 +35,16 @@ public class PostController {
     }
 
     @GetMapping("/posts/create")
-    @ResponseBody
     public String showForm(){
-        return "view the form for creating a post";
+        return "posts/create";
     }
 
     @PostMapping("/posts/create")
-    @ResponseBody
     public String create(@RequestParam String title,@RequestParam String body){
-        System.out.println("title = " + title);
-        System.out.println("body = " + body);
-        return "create a new form";
+        Post post = new Post(title,body);
+        post.setUser(userDao.getOne(1L));
+        postDao.save(post);
+        return "redirect:/posts";
     }
 
     @GetMapping("/posts/{id}/edit")
