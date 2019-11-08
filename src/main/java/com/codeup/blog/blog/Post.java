@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="posts")
-public class Posts {
+public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "Int(11) UNSIGNED",nullable = false)
@@ -16,13 +16,17 @@ public class Posts {
     @Column(nullable = false, length = 300)
     private String body;
 
-    public Posts(long id, String title, String body) {
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public Post(long id, String title, String body) {
         this.id = id;
         this.title = title;
         this.body = body;
     }
 
-    public Posts(){
+    public Post(){
 
     }
 
@@ -48,5 +52,13 @@ public class Posts {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

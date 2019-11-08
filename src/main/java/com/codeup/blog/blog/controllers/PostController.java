@@ -1,12 +1,10 @@
 package com.codeup.blog.blog.controllers;
-import com.codeup.blog.blog.Posts;
+import com.codeup.blog.blog.Post;
 
 import com.codeup.blog.blog.repositories.PostsRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 
 @Controller
 public class PostController {
@@ -20,13 +18,13 @@ public class PostController {
 
     @GetMapping("/posts")
     public String index(Model viewModel){
-        viewModel.addAttribute("posts", postDao.findAll());
+        viewModel.addAttribute("post", postDao.findAll());
         return "posts/index";
     }
 
     @GetMapping("/posts/{id}")
     public String showById(@PathVariable long id, Model viewModel){
-        viewModel.addAttribute("posts", postDao.getOne(id));
+        viewModel.addAttribute("post", postDao.getOne(id));
 
         return "posts/show";
     }
@@ -53,7 +51,7 @@ public class PostController {
 
     @PostMapping("/posts/{id}/edit")
     public String edit(@PathVariable long id,@RequestParam String title,@RequestParam String body){
-        Posts oldPost = postDao.getOne(id);
+        Post oldPost = postDao.getOne(id);
         oldPost.setTitle(title);
         oldPost.setBody(body);
         postDao.save(oldPost);
@@ -63,7 +61,7 @@ public class PostController {
     @PostMapping("/posts/delete")
     public String delete(@RequestParam(name = "id") long id, Model viewModel){
         postDao.deleteById(id);
-        viewModel.addAttribute("posts", postDao.findAll());
+        viewModel.addAttribute("post", postDao.findAll());
         return "redirect:/posts";
     }
 
