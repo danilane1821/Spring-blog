@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form th:action="'/posts/' + ${post.id} + '/edit'" th:method="post">
+<form th:action="'/posts/' + ${post.id} + '/edit'" th:method="post" th:object="${post}">
       <div class="form-group">
         <label for="title">Title</label>
         <input class="form-control" id="title" type="text" th:value="${post.title}" name="title">

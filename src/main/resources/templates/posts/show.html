@@ -16,8 +16,8 @@
     <h1 th:text ="${post.title}"></h1>
     <p th:text="${post.body}"></p>
     <input type="hidden" name="id" th:value="${post}">
-    <p>Created by: <span th:text="${post.user.email}"></span></p>
     <input type="hidden" name="id" th:value="${post.id}">
+    <p>Created by: <span th:text="${post.user.email}"></span></p>
 </div>
 </div>
 
