@@ -1,9 +1,10 @@
 package com.codeup.blog.blog.controllers;
+import com.codeup.blog.blog.EmailService;
 import com.codeup.blog.blog.Post;
 
-import com.codeup.blog.blog.User;
 import com.codeup.blog.blog.repositories.PostsRepository;
 import com.codeup.blog.blog.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,10 @@ public class PostController {
     private final PostsRepository postDao;
 
     public final UserRepository userDao;
+
+    @Autowired
+    EmailService emailService;
+
 
     public PostController(PostsRepository postDao, UserRepository userDao) {
         this.postDao = postDao;
@@ -45,6 +50,7 @@ public class PostController {
     public String create(@ModelAttribute Post post){
         post.setUser(userDao.getOne(1L));
         postDao.save(post);
+        emailService.prepareAndSend(post, "Ad created", "An Ad has been created, with the id of " + post.getId());
         return "redirect:/posts";
     }
 
@@ -65,7 +71,7 @@ public class PostController {
 
         @PostMapping("/posts/{id}/edit")
     public String edit(@PathVariable long id, @ModelAttribute Post post){
-            post.setUser(userDao.getOne(2l));
+            post.setUser(userDao.getOne(2L));
             postDao.save(post);
 
         return "redirect:/posts/" + id;

@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>All posts</title>
+    <head>
+        <th:block th:replace="fragments/header :: header"/>
+        <title>All Posts</title>
+    </head>
 </head>
 <body>
 <div class="card" th:each="post : ${post}">
     <h1 th:text="${post.title}"></h1>
     <p th:text="${post.body}"></p>
     <input type="hidden" name="id" th:value="${post.id}">
-    <form method="post" action="/posts/delete">
-        <input type="hidden" name="id" th:value="${post.id}">
-        <button>Delete</button>
-    </form>
-    <form th:action="@{'/posts/' + ${post.id} + '/edit'}" th:method="get">
-        <input type="hidden" name="id" th:value="${post.id}">
-        <button>Edit</button>
-    </form>
+<!--    </form>-->
+<!--    <form th:action="@{'/posts/' + ${post.id} + '/edit'}" th:method="get">-->
+<!--        <input type="hidden" name="id" th:value="${post.id}">-->
+<!--        <button>Edit</button>-->
+<!--    </form>-->
 </div>
 </body>
 </html>
