@@ -17,10 +17,6 @@
             margin: 0 auto;
         }
 
-        #edit{
-            width: 70px;
-        }
-
     </style>
 </head>
 <body>
@@ -30,7 +26,6 @@
         <th:block th:replace="fragments/jumbotron :: jumbotron-show"/>
         <h1 th:text ="${post.title}"></h1>
         <p th:text="${post.body}"></p>
-        <input type="hidden" name="id" th:value="${post}">
         <input type="hidden" name="id" th:value="${post.id}">
 
         <p>Created by: <span th:text="${post.user.email}"></span></p>
@@ -38,20 +33,13 @@
         <div sec:authorize="isAuthenticated()">
 
             <th:block th:if="${post.user.id == #authentication.principal.id}">
-                <a th:href="@{'/posts/' + ${post.id} + '/edit'}" class="btn btn-warning">Edit Post</a>
+                <a th:href="@{'/posts/' + ${post.id} + '/edit'}" class="btn btn-dark btn-block">Edit Post</a>
                 <form th:action="@{'/posts/' + ${post.id} + '/delete'}" method="post">
                     <button class="btn btn-danger btn-block">Delete Post</button>
                 </form>
             </th:block>
         </div>
-<!--        <form th:action="@{'/posts/' + ${post.id} + '/edit'}" th:method="get">-->
-<!--            <input type="hidden" name="id" th:value="${post.id}">-->
-<!--            <button id="edit" class="btn btn-dark">Edit</button>-->
-<!--        </form>-->
-<!--        <form method="post" action="/posts/delete">-->
-<!--            <input type="hidden" name="id" th:value="${post.id}">-->
-<!--            <button id="delete" class="btn btn-dark">Delete</button>-->
-<!--        </form>-->
+
     </div>
 </div>
 

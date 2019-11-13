@@ -2,9 +2,11 @@ package com.codeup.blog.blog.controllers;
 import com.codeup.blog.blog.Models.EmailService;
 import com.codeup.blog.blog.Models.Post;
 
+import com.codeup.blog.blog.Models.User;
 import com.codeup.blog.blog.repositories.PostsRepository;
 import com.codeup.blog.blog.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,9 +30,9 @@ public class PostController {
 
 
     @GetMapping("/posts")
-    public String index(Model viewModel){
+    public String postIndex(Model viewModel){
         viewModel.addAttribute("post", postDao.findAll());
-        return "posts/index";
+        return "posts/post";
     }
 
     @GetMapping("/posts/{id}")
@@ -48,7 +50,8 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String create(@ModelAttribute Post post){
-        post.setUser(userDao.getOne(1L));
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        post.setUser(currentUser);
         postDao.save(post);
         emailService.prepareAndSend(post, "Ad created", "An Ad has been created, with the id of " + post.getId());
         return "redirect:/posts";
@@ -60,27 +63,18 @@ public class PostController {
         return "posts/edit";
     }
 
-//    @PostMapping("/posts/{id}/edit")
-//    public String edit(@PathVariable long id,@RequestParam String title,@RequestParam String body){
-//        Post oldPost = postDao.getOne(id);
-//        oldPost.setTitle(title);
-//        oldPost.setBody(body);
-//        postDao.save(oldPost);
-//        return "redirect:/posts/" + id;
-//    }
-
         @PostMapping("/posts/{id}/edit")
     public String edit(@PathVariable long id, @ModelAttribute Post post){
-            post.setUser(userDao.getOne(2L));
+            User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            post.setUser(currentUser);
             postDao.save(post);
-
         return "redirect:/posts/" + id;
     }
 
-    @PostMapping("/posts/delete")
-    public String delete(@RequestParam(name = "id") long id, Model viewModel){
+
+    @PostMapping("/posts/{id}/delete")
+    public String delete(@PathVariable long id){
         postDao.deleteById(id);
-        viewModel.addAttribute("post", postDao.findAll());
         return "redirect:/posts";
     }
 

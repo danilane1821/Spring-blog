@@ -1,47 +1,35 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <head>
-        <th:block th:replace="fragments/header :: header"/>
-        <title>All Posts</title>
-        <style>
-            h1{
-               text-align: center;
-               color: #8D7BBB
-            }
+    <th:block th:replace="fragments/header :: header"/>
+    <title>PostLister home</title>
+    <style>
+        h1{
+            text-align: center;
+            color: #8D7BBB
+        }
+        p{
+            text-align: center;
+            color: #499A99
+        }
 
-            p{
-                text-align: center;
-                color: #499A99
-            }
-            form{
-               margin: 0 auto;
-            }
-
-        </style>
-    </head>
+    </style>
 </head>
 <body>
-
-<div sec:authorize="isAuthenticated()">
-    This content is only shown to authenticated users.
-
-    User ID: <span th:text="${#authentication.principal.id}"/>
-    Username: <span th:text="${#authentication.principal.username}"/>
-    Email: <span th:text="${#authentication.principal.email}"/>
-</div>
 <th:block th:replace="fragments/navbar :: main-navbar"/>
 <div class="container">
-    <th:block th:replace="fragments/jumbotron :: jumbotron-index"/>
-    <div class="card" th:each="post : ${post}">
-        <h1 th:text="${post.title}"></h1>
-        <p th:text="${post.body}"></p>
-        <input type="hidden" name="id" th:value="${post.id}">
-        <form th:action="@{'/posts/' + ${post.id}}" th:method="get">
-            <input type="hidden" name="id" th:value="${post.id}">
-            <button class="btn btn-dark" id="viewPost">view this post</button>
-        </form>
+    <div class="jumbotron">
+        <div sec:authorize="isAuthenticated()">
+            <h1 id ="welcome">Welcome <span th:text="${#authentication.principal.username}"/>!</h1>
+            <p>Here are some of your posts</p>
+        </div>
+        <div sec:authorize="!isAuthenticated()">
+            <h1>Welcome to PostLister! </h1>
+            <h1>Please sign up or login to create posts!</h1>
+        </div>
     </div>
+
+
 </div>
 </body>
 </html>
