@@ -3,27 +3,47 @@
 <head>
     <th:block th:replace="fragments/header :: header"/>
     <title>Post</title>
+    <style>
+        h1{
+            text-align: center;
+            color: #8D7BBB
+        }
+
+        p{
+            text-align: center;
+            color: #499A99
+        }
+        form{
+            margin: 0 auto;
+        }
+
+        #edit{
+            width: 70px;
+        }
+
+    </style>
 </head>
 <body>
 
-<!--<h1>This is the home page</h1>-->
 ​
-​
-<div class = "card">
-    <h1 th:text ="${post.title}"></h1>
-    <p th:text="${post.body}"></p>
-    <input type="hidden" name="id" th:value="${post}">
-    <input type="hidden" name="id" th:value="${post.id}">
-    <form th:action="@{'/posts/' + ${post.id} + '/edit'}" th:method="get">
+​<div class="container">
+    <th:block th:replace="fragments/navbar :: main-navbar"/>
+    <div class = "card">
+        <th:block th:replace="fragments/jumbotron :: jumbotron-show"/>
+        <h1 th:text ="${post.title}"></h1>
+        <p th:text="${post.body}"></p>
+        <input type="hidden" name="id" th:value="${post}">
         <input type="hidden" name="id" th:value="${post.id}">
-        <button>Edit</button>
-    </form>
+        <form th:action="@{'/posts/' + ${post.id} + '/edit'}" th:method="get">
+            <input type="hidden" name="id" th:value="${post.id}">
+            <button id="edit" class="btn btn-dark">Edit</button>
+        </form>
         <form method="post" action="/posts/delete">
             <input type="hidden" name="id" th:value="${post.id}">
-            <button>Delete</button>
+            <button id="delete" class="btn btn-dark">Delete</button>
         </form>
-    <p>Created by: <span th:text="${post.user.email}"></span></p>
-</div>
+        <p>Created by: <span th:text="${post.user.email}"></span></p>
+    </div>
 </div>
 
 </body>
