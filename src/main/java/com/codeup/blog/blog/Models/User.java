@@ -1,4 +1,4 @@
-package com.codeup.blog.blog;
+package com.codeup.blog.blog.Models;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,10 +12,10 @@ public class User {
     @Column(columnDefinition = "Int(11) UNSIGNED",nullable = false)
     private long id;
 
-    @Column(nullable = false, length = 200)
+    @Column(nullable = false, length = 200, unique = true)
     private String username;
 
-    @Column(nullable = false, length = 400)
+    @Column(nullable = false, length = 400, unique = true)
     private String email;
 
     @Column(nullable = false, length = 200)
@@ -35,6 +35,13 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    public User(User copy) {
+        id = copy.id; // This line is SUPER important! Many things won't work if it's absent
+        email = copy.email;
+        username = copy.username;
+        password = copy.password;
     }
 
     public User() {

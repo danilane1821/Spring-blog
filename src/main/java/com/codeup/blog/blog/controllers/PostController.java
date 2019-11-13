@@ -1,6 +1,6 @@
 package com.codeup.blog.blog.controllers;
-import com.codeup.blog.blog.EmailService;
-import com.codeup.blog.blog.Post;
+import com.codeup.blog.blog.Models.EmailService;
+import com.codeup.blog.blog.Models.Post;
 
 import com.codeup.blog.blog.repositories.PostsRepository;
 import com.codeup.blog.blog.repositories.UserRepository;

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <html lang="en">
 <head>
     <th:block th:replace="fragments/header :: header"/>
@@ -15,8 +17,10 @@
     </style>
 </head>
 <body>
+
+
+    <th:block th:replace="fragments/navbar :: main-navbar"/>
     <div class="container">
-        <th:block th:replace="fragments/navbar :: main-navbar"/>
         <th:block th:replace="fragments/jumbotron :: jumbotron-create"/>
         <form th:action="@{'/posts/create'}" th:method="post" th:object="${post}">
             <input type="text" th:field="*{title}" placeholder="enter title">

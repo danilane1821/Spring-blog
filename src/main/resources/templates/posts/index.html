@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <head>
         <th:block th:replace="fragments/header :: header"/>
@@ -22,8 +22,16 @@
     </head>
 </head>
 <body>
+
+<div sec:authorize="isAuthenticated()">
+    This content is only shown to authenticated users.
+
+    User ID: <span th:text="${#authentication.principal.id}"/>
+    Username: <span th:text="${#authentication.principal.username}"/>
+    Email: <span th:text="${#authentication.principal.email}"/>
+</div>
+<th:block th:replace="fragments/navbar :: main-navbar"/>
 <div class="container">
-    <th:block th:replace="fragments/navbar :: main-navbar"/>
     <th:block th:replace="fragments/jumbotron :: jumbotron-index"/>
     <div class="card" th:each="post : ${post}">
         <h1 th:text="${post.title}"></h1>

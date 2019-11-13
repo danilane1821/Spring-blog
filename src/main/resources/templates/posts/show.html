@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <th:block th:replace="fragments/header :: header"/>
     <title>Post</title>
@@ -24,25 +24,34 @@
     </style>
 </head>
 <body>
-
-​
-​<div class="container">
-    <th:block th:replace="fragments/navbar :: main-navbar"/>
+<th:block th:replace="fragments/navbar :: main-navbar"/>
+    ​<div class="container">
     <div class = "card">
         <th:block th:replace="fragments/jumbotron :: jumbotron-show"/>
         <h1 th:text ="${post.title}"></h1>
         <p th:text="${post.body}"></p>
         <input type="hidden" name="id" th:value="${post}">
         <input type="hidden" name="id" th:value="${post.id}">
-        <form th:action="@{'/posts/' + ${post.id} + '/edit'}" th:method="get">
-            <input type="hidden" name="id" th:value="${post.id}">
-            <button id="edit" class="btn btn-dark">Edit</button>
-        </form>
-        <form method="post" action="/posts/delete">
-            <input type="hidden" name="id" th:value="${post.id}">
-            <button id="delete" class="btn btn-dark">Delete</button>
-        </form>
+
         <p>Created by: <span th:text="${post.user.email}"></span></p>
+
+        <div sec:authorize="isAuthenticated()">
+
+            <th:block th:if="${post.user.id == #authentication.principal.id}">
+                <a th:href="@{'/posts/' + ${post.id} + '/edit'}" class="btn btn-warning">Edit Post</a>
+                <form th:action="@{'/posts/' + ${post.id} + '/delete'}" method="post">
+                    <button class="btn btn-danger btn-block">Delete Post</button>
+                </form>
+            </th:block>
+        </div>
+<!--        <form th:action="@{'/posts/' + ${post.id} + '/edit'}" th:method="get">-->
+<!--            <input type="hidden" name="id" th:value="${post.id}">-->
+<!--            <button id="edit" class="btn btn-dark">Edit</button>-->
+<!--        </form>-->
+<!--        <form method="post" action="/posts/delete">-->
+<!--            <input type="hidden" name="id" th:value="${post.id}">-->
+<!--            <button id="delete" class="btn btn-dark">Delete</button>-->
+<!--        </form>-->
     </div>
 </div>
 

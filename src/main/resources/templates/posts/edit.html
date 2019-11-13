@@ -12,8 +12,8 @@
     </style>
 </head>
 <body>
+<th:block th:replace="fragments/navbar :: main-navbar"/>
 <div class="container">
-    <th:block th:replace="fragments/navbar :: main-navbar"/>
     <th:block th:replace="fragments/jumbotron :: jumbotron-edit"/>
     <form th:action="'/posts/' + ${post.id} + '/edit'" th:method="post" th:object="${post}">
         <div class="form-group">
