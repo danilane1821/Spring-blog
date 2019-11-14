@@ -11,4 +11,5 @@ import java.util.List;
 @Repository
 public interface PostsRepository extends JpaRepository<Post, Long> {
 
+    Post findByTitle(String post_to_be_deleted);
 }
