@@ -22,7 +22,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String index(Model viewModel){
-        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return "posts/index";
     }
 

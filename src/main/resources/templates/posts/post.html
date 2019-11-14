@@ -42,7 +42,7 @@
         <input type="hidden" name="id" th:value="${post.id}">
         <form th:action="@{'/posts/' + ${post.id}}" th:method="get">
             <input type="hidden" name="id" th:value="${post.id}">
-            <button class="btn btn-dark" id="viewPost">view this post</button>
+            <button class="btn btn-dark btn-block" id="viewPost">view this post</button>
         </form>
     </div>
 </div>
